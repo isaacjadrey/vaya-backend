@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: ${LOCAL_DB_URL}
+    username: ${LOCAL_DB_USER}
+    password: ${LOCAL_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+  flyway:
+    enabled: true
+  data:
+     redis:
+       host: localhost
+       port: 6379
+  mail:
+      host: localhost
+      port: 1026
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-ttl-minutes: ${ACCESS_TOKEN-TTL_MINUTES}
+    refresh-token-ttl-days: {$REFRESH_TOKEN_TTL_DAYS}
+  mail:
+    frontend-base-url: ${FRONTEND_BASE_URL}
+    from-address: ${FROM_MAIL_URL}
+    app-name: ${APP_NAME}
