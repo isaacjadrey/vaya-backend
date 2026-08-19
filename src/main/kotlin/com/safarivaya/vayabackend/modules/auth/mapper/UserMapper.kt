@@ -11,5 +11,5 @@ fun User.toResponse() = UserResponse(
     phoneNumber = phoneNumber,
     role = role.name,
     status = status.name,
-    permissions = extraRules.toSet()
+    permissions = effectiveRules
 )

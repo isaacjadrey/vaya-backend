@@ -1,20 +1,13 @@
 package com.safarivaya.vayabackend.modules.auth.entity
 
-import jakarta.persistence.CollectionTable
-import jakarta.persistence.Column
-import jakarta.persistence.ElementCollection
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.FetchType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.Table
+import com.safarivaya.vayabackend.modules.auth.service.RolePermissionRegistry
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 enum class UserRole {
     SUPER_ADMIN, ADMIN, SUPERVISOR, AUDITOR, OPERATOR, CLERK, INSPECTOR, DRIVER, NONE,
 }
+
 enum class UserStatus { INACTIVE, ACTIVE, SUSPENDED }
 
 @Entity
@@ -36,4 +29,10 @@ class User(
     var verificationCode: String? = null,
     var verificationExpiresAt: LocalDateTime? = null,
     @Column(nullable = false) var createdAt: LocalDateTime = LocalDateTime.now()
-)
+) {
+    @get:Transient
+    val effectiveRules: Set<Rules>
+        get() = RolePermissionRegistry.permissionsFor(role) + extraRules
+}
+
+//fun User.effectivePermissions(): Set<Rules> = RolePermissionRegistry.permissionsFor(role) + extraRules
