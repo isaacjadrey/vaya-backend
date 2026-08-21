@@ -22,12 +22,12 @@ CREATE TABLE company_operation_countries
 CREATE TABLE company_addresses
 (
     id               VARCHAR(36) PRIMARY KEY,
-    company_id       VARCHAR(36)  NOT NULL REFERENCES companies (id),
+    tenant_id       VARCHAR(36)  NOT NULL REFERENCES companies (id),
     address_label    VARCHAR(100) NOT NULL,
     address_location VARCHAR(255) NOT NULL,
     created_at       TIMESTAMP    NOT NULL DEFAULT now()
 );
-CREATE INDEX idx_company_addresses_company_id ON company_addresses (company_id);
+CREATE INDEX idx_company_addresses_tenant_id ON company_addresses (tenant_id);
 
 CREATE TABLE company_address_lines
 (

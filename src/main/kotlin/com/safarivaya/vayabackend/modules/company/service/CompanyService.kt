@@ -60,7 +60,7 @@ class CompanyService(
         val addresses = request.addresses.map { address ->
             CompanyAddress(
                 id = idGenerator.next(),
-                companyId = company.id,
+                tenantId = company.id,
                 addressLabel = address.addressLabel,
                 addressLines = address.addressLines.toMutableList(),
                 addressLocation = address.addressLocation
@@ -83,6 +83,6 @@ class CompanyService(
 
     fun getCompany(companyId: String): CompanyResponse {
         val company = companyRepo.findById(companyId).orElseThrow { ApplicationException.NotFoundException("Company not found") }
-        return company.toResponse(addressRepo.findAllByCompanyId(companyId))
+        return company.toResponse(addressRepo.findAllByTenantId(companyId))
     }
 }

@@ -10,5 +10,5 @@ interface CompanyRepository : JpaRepository<Company, String> {
 }
 
 interface CompanyAddressRepository : JpaRepository<CompanyAddress, String> {
-    fun findAllByCompanyId(companyId: String): List<CompanyAddress>
+    fun findAllByTenantId(tenantId: String): List<CompanyAddress>
 }
